@@ -5,11 +5,11 @@ package calculator;
  */
 public class Calculator {
     public static final int CONVERTER_SQRMM = 1000000;
-    private DBData dbData;
+    private static DBData dbData;
 
-    private Wardrobe wardrobe = new Wardrobe();
-    Model model = new Model();
-    public double calculateBoard(int height, int length, int width, int doors, int shelf,
+    private static Wardrobe wardrobe;
+    Model model;
+    public static double calculateBoard(int height, int length, int width, int doors, int shelf,
                                  int rod, int pantograph, int hanger,
                                  int box, int roof, int bottom, int rearPanel, int radius,
                                  String flakeboard, int margin) {
@@ -51,7 +51,7 @@ public class Calculator {
     }
 
 
-    public double calculateFacade(int height, int length, int doors, int margin, String facade) {
+    public static double calculateFacade(int height, int length, int doors, int margin, String facade) {
 
         double rearPanelArea = (height * length) / CONVERTER_SQRMM;
         double facadePrice = dbData.checkFacadePrice(facade) * rearPanelArea;

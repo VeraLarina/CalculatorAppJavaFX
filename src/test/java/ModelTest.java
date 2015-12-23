@@ -1,3 +1,4 @@
+import calculator.DBData;
 import calculator.Date;
 import calculator.Model;
 import org.junit.Test;
@@ -10,56 +11,57 @@ import static org.junit.Assert.assertEquals;
 public class ModelTest {
 
     Model model = new Model();
-/*
+    DBData db = new DBData();
+
     @Test
      public void testFlakeBoardPrice(){
-        Model model = new Model();
-        assertEquals(7.46, model.getFlakeboardPrice("Egger ST22", model.getConnection()),0 );
+        DBData db = new DBData();
+        assertEquals(7.46, db.checkFlakeboardPrice("Egger ST22"),0 );
         System.out.println("Flakeboard OK");
     }
 
 
     @Test
       public void testRodPrice() {
-        Model model = new Model();
-        assertEquals(1.7, model.getRodPrice(model.getConnection()), 0);
+        DBData db = new DBData();
+        assertEquals(1.7, db.checkRodPrice(), 0);
         System.out.println("Rod OK");
     }
 
     @Test
      public void testPantographPrice() {
-        Model model = new Model();
-        assertEquals(54.16, model.getPantographPrice(model.getConnection()), 0);
+        DBData db = new DBData();
+        assertEquals(54.16, db.checkPantographPrice(), 0);
         System.out.println("Pantograph OK");
     }
 
     @Test
     public void testHangerPrice() {
-        Model model = new Model();
-        assertEquals(37.5, model.getHangerPrice(model.getConnection()), 0);
+        DBData db = new DBData();
+        assertEquals(37.5, db.checkHangerPrice(), 0);
         System.out.println("Hanger OK");
     }
 
     @Test
     public void testBoxPrice() {
-        Model model = new Model();
-        assertEquals(8.33, model.getBoxPrice(model.getConnection()), 0);
+        DBData db = new DBData();
+        assertEquals(8.33, db.checkBoxPrice(), 0);
         System.out.println("Box OK");
     }
 
     @Test
       public void testMarginRate() {
-        Model model = new Model();
-        assertEquals(1.75, model.getMarginRate(4, model.getConnection()), 0);
+        DBData db = new DBData();
+        assertEquals(1.75, db.checkMarginRate(4), 0);
         System.out.println("Margin OK");
     }
 
     @Test
     public void testFacadePrice() {
-        Model model = new Model();
-        assertEquals(18.58, model.getFacadePrice("Зеркало серебро", model.getConnection()), 0);
+        DBData db = new DBData();
+        assertEquals(18.58, db.checkFacadePrice("Зеркало серебро"), 0);
         System.out.println("Facade Price OK");
     }
 
-*/
+
     }

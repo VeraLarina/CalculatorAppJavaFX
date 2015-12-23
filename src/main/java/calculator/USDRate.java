@@ -28,6 +28,7 @@ public class USDRate {
             }
         }
         double currencyRate = (double) Math.round(rateUSD * 100) / 100;
+        System.out.println(currencyRate);
         return currencyRate;
 
     }

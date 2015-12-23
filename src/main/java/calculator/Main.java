@@ -22,6 +22,7 @@ public class Main extends Application {
         Model model = new Model();
         controller.setModel(model);
         primaryStage.show();
+    //    model.newConnection();
         controller.setFields();
         model.newConnection();
 

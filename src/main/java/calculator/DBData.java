@@ -11,19 +11,18 @@ import java.util.Properties;
  * Created by VeraL on 21.12.2015.
  */
 public class DBData {
-    private Connection con = getConnection();
+    public static   Connection con = getConnection();
 
     private static final String FLAKEBOARD_18MM_QUERY = "SELECT * FROM mebdom_calc.flakeboard18mm";
     private static final String FACADE_DETAILS_QUERY=  "SELECT * FROM mebdom_calc.facadeprice";
+    private static final String MARGIN_DETAILS_QUERY = "SELECT * FROM mebdom_calc.margin";
+    private static final String ELEMENTS_PRICE_QUERY = "SELECT * FROM mebdom_calc.pricelist WHERE id=?";
     private static final String PRICE_COLUMN = "price";
     private static final String MARGIN_LEVEL = "id";
     private static final String MATERIALS_NAME = "name";
-    private static final String MARGIN_DETAILS_QUERY = "SELECT * FROM mebdom_calc.margin";
-    private static final String ELEMENTS_PRICE_QUERY = "SELECT * FROM mebdom_calc.pricelist";
 
 
-
-    public Connection getConnection() {
+    public static  Connection getConnection() {
 
         if (con == null) {
             Properties connectionProps = new Properties();
@@ -53,7 +52,7 @@ public class DBData {
         return con;
     }
 
-    public String[] getFlakeboard() {
+    public String[] getFlakeboard(Connection con) {
 
         ArrayList<String> flakeboard = null;
 
@@ -108,10 +107,10 @@ public class DBData {
         return names;
     }
 
-    public double checkProfilePrice() {
+    public static double checkProfilePrice() {
         //String query = ELEMENTS_PRICE_QUERY  + "WHERE id=?";
         double price = 0;
-        try (PreparedStatement st = con.prepareStatement(ELEMENTS_PRICE_QUERY  + "WHERE id=?")) {
+        try (PreparedStatement st = con.prepareStatement(ELEMENTS_PRICE_QUERY)) {
             st.setInt(1, 6);
             st.executeQuery();
             ResultSet rs = st.getResultSet();
@@ -125,9 +124,9 @@ public class DBData {
         return price;
     }
 
-    public double checkFlakeboardPrice(String flakeboard) {
+    public static   double checkFlakeboardPrice(String flakeboard) {
         double flakeboardPrice = 0;
-        try (PreparedStatement st = con.prepareStatement(FLAKEBOARD_18MM_QUERY + " WHERE name=?")) {
+        try (PreparedStatement st = con.prepareStatement("SELECT * FROM mebdom_calc.flakeboard18mm WHERE name=?")) {
             st.setString(1, flakeboard);
             st.executeQuery();
             ResultSet rs = st.getResultSet();
@@ -141,10 +140,10 @@ public class DBData {
         return flakeboardPrice;
     }
 
-    public double checkFacadePrice(String facade) {
+    public static  double checkFacadePrice(String facade) {
 
         double facadePrice = 0;
-        try (PreparedStatement st = con.prepareStatement(FACADE_DETAILS_QUERY + "WHERE name=?")) {
+        try (PreparedStatement st = con.prepareStatement("SELECT * FROM mebdom_calc.facadeprice WHERE name=?")) {
             st.setString(1, facade);
             // st.executeQuery();
             ResultSet rs = st.executeQuery();
@@ -161,9 +160,9 @@ public class DBData {
     }
 
 
-    public double checkRodPrice() {
+    public static  double checkRodPrice() {
         double price = 0;
-        try (PreparedStatement st = con.prepareStatement(ELEMENTS_PRICE_QUERY + "WHERE id=?")) {
+        try (PreparedStatement st = con.prepareStatement(ELEMENTS_PRICE_QUERY)) {
             st.setInt(1, 1);
             st.executeQuery();
             ResultSet rs = st.getResultSet();
@@ -177,9 +176,9 @@ public class DBData {
         return price;
     }
 
-    public double checkPantographPrice() {
+    public  static  double checkPantographPrice() {
         double price = 0;
-        try (PreparedStatement st = con.prepareStatement(ELEMENTS_PRICE_QUERY+ "WHERE id=?")) {
+        try (PreparedStatement st = con.prepareStatement(ELEMENTS_PRICE_QUERY)) {
             st.setInt(1, 3);
             st.executeQuery();
             ResultSet rs = st.getResultSet();
@@ -193,10 +192,10 @@ public class DBData {
         return price;
     }
 
-    public double checkHangerPrice() {
+    public static  double checkHangerPrice() {
 
         double price = 0;
-        try (PreparedStatement st = con.prepareStatement(ELEMENTS_PRICE_QUERY + "WHERE id=?")) {
+        try (PreparedStatement st = con.prepareStatement("SELECT * FROM mebdom_calc.pricelist WHERE id=?")) {
             st.setInt(1, 2);
             st.executeQuery();
             ResultSet rs = st.getResultSet();
@@ -210,9 +209,9 @@ public class DBData {
         return price;
     }
 
-    public double checkBoxPrice() {
+    public static  double checkBoxPrice() {
         double price = 0;
-        try (PreparedStatement st = con.prepareStatement(ELEMENTS_PRICE_QUERY + "WHERE id=?")) {
+        try (PreparedStatement st = con.prepareStatement("SELECT * FROM mebdom_calc.pricelist WHERE id=?")) {
             st.setInt(1, 4);
             st.executeQuery();
             ResultSet rs = st.getResultSet();
@@ -226,32 +225,33 @@ public class DBData {
         return price;
     }
 
-    public double checkFiberboardPrice() {
+    public static double checkFiberboardPrice() {
 
-        double flakeboardPrice = 0;
-        try (PreparedStatement st = con.prepareStatement(ELEMENTS_PRICE_QUERY+ "WHERE id=?")) {
+        double fiberBoardPrice = 0;
+        try (PreparedStatement st = con.prepareStatement("SELECT * FROM mebdom_calc.pricelist WHERE id=?"))
+        {
             st.setInt(1, 5);
             st.executeQuery();
             ResultSet rs = st.getResultSet();
             while (rs.next()) {
-                flakeboardPrice = rs.getDouble(PRICE_COLUMN);
+                fiberBoardPrice = rs.getDouble(PRICE_COLUMN);
             }
         } catch (
                 SQLException ex) {
             ex.printStackTrace();
         }
-        return flakeboardPrice;
+        return fiberBoardPrice;
     }
 
 
-    public double checkMarginRate(int margin) {
+    public static  double checkMarginRate(int margin) {
         double marginRate = 0;
-        try (PreparedStatement st = con.prepareStatement(MARGIN_DETAILS_QUERY + "WHERE id=?")) {
+        try (PreparedStatement st = con.prepareStatement("SELECT * FROM mebdom_calc.margin WHERE id=?")) {
             st.setInt(1, margin);
             st.executeQuery();
             ResultSet rs = st.getResultSet();
             while (rs.next()) {
-                marginRate = rs.getDouble(2);
+                marginRate = rs.getDouble("margin");
             }
         } catch (
                 SQLException ex) {

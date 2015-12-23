@@ -18,7 +18,7 @@ public class Model {
 
 
 
-    private static final String  HANGER_QUERY = "SELECT * FROM mebdom_calc.pricelist WHERE id=?";
+   // private static final String  HANGER_QUERY = "SELECT * FROM mebdom_calc.pricelist WHERE id=?";
     private static final String WORKBENCH_EXE = "\"C:\\Program Files\\MySQL\\MySQL Workbench 6.3 CE\\MySQLWorkbench.exe\"";
     private static final String CALC_EXE = "calc.exe";
     //  Wardrobe wardrobe;
@@ -28,12 +28,12 @@ public class Model {
    private CustomerDAO cd = new CustomerDAO();
   private DBData dbData = new DBData();
 private USDRate usdRate = new USDRate();
-    private  Calculator calculator = new Calculator();
+    private  static Calculator calculator;
 
 
 
 
-    public double getBoardPrice(int height, int length, int width, int doors, int shelf,
+    public static double getBoardPrice(int height, int length, int width, int doors, int shelf,
                                  int rod, int pantograph, int hanger,
                                  int box, int roof, int bottom, int rearPanel, int radius,
                                  String flakeboard, int margin) {
@@ -61,12 +61,12 @@ double facadePrice = calculator.calculateFacade(height, length, doors, margin, f
         double price = dbData.checkProfilePrice();
         return price;
     }
-
+/*
     public double getFlakeboardPrice(String flakeboard) {
         double price = dbData.checkFlakeboardPrice(flakeboard);
         return price;
     }
-
+*/
     public double getFacadePrice(String facade) {
         double facadePrice  = dbData.checkFacadePrice(facade);
         return facadePrice;
@@ -126,7 +126,7 @@ double facadePrice = calculator.calculateFacade(height, length, doors, margin, f
 
     public String[] showFlakeboard() {
         String [] flakeboardDetails;
-                flakeboardDetails = dbData.getFlakeboard();
+                flakeboardDetails = dbData.getFlakeboard(dbData.getConnection());
         return flakeboardDetails;
     }
 
